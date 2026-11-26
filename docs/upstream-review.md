@@ -10,7 +10,7 @@
 - `docs/api-workflow.md`
 - `docs/maintenance.md`
 - `examples/tasks.sh`
-- `.gitignore`
+- `LICENSE`
 
 ## Useful concepts adapted
 
@@ -20,30 +20,26 @@
 4. Treat draft-to-final conversion as a separate task with separate cost and an expiry window.
 5. Save task IDs and receipts, poll the original task, and avoid duplicate submissions after uncertain responses.
 6. Treat storyboard grids as planning/reference material, not as a guarantee of exact panel timing.
+7. Keep documentation maintenance separate from claims of live API validation or successful generation.
 
 ## Deliberate project differences
 
-- This repository keeps its existing Rocky-specific folder structure and prompt templates.
+- This repository keeps its Rocky-specific folder structure, character sheets, scene continuity rules, and prompt templates.
 - The upstream paid-task helper was not copied. The local `scripts/tasks.sh` only prints preparation guidance and never sends API requests.
 - No API keys, generated media, upstream media assets, or bulky files were copied.
-- Route names and CLI commands are examples that must be checked against live provider schemas and account availability.
-- The upstream guide's product-ad example was adapted into a character-animation workflow; its product prompt was not copied.
+- Route names, CLI commands, and parameter examples must be checked against live provider schemas and account availability.
+- The upstream tutorial is product-photo focused; this project adapts the general image-first workflow to character animation rather than copying product prompts.
 
 ## Availability and current API notes
 
-The upstream README describes Seedance 2.5 as available and lists the five main generation/edit/extend routes. The provider's changelog dated 2026-11-16 also describes 4K output on all five Seedance 2.5 generation models and 4K draft conversion. However, a separate official Seedance 2.5 API skill repository still states that the official API pages mark text, image, and reference routes as not yet available. These sources conflict about route availability or rollout status.
+The upstream repository describes multiple Seedance 2.5 routes and a 4K update in its provider changelog. However, route availability and rollout status can differ by endpoint, account, and date. This project makes no blanket availability claim. Before use, check the exact route's current API page, model catalogue, account permissions, input requirements, and pricing.
 
-Therefore this project makes no blanket availability claim. Before use, check the exact route's current API page, model catalogue, account permissions, and pricing. Do not infer that one working route or a marketing/model page means every route is callable for a given account.
-
-The 4K update is time-sensitive. The changelog says to pass `quality: "4k"` on the five generation/edit/extend routes, while draft conversion accepts `1080p` (default) or `4k`. Confirm the live schema and current rate before relying on these values.
-
-Sources checked:
-- [EvoLink API changelog](https://evolink.ai/changelog) — includes the 2026-11-16 Seedance 2.5 4K update.
-- [EvoLink Seedance 2.5 API status article](https://evolink.ai/blog/seedance-2-5-api-status) — describes five routes and dated availability history.
-- [EvoLink Seedance 2.5 API skill repository](https://github.com/Evolink-AI/seedance-2-5-video-generate-api-skill) — its README carries a caution that official API pages still say some routes are not yet available.
+The upstream API workflow inspected during this review includes an image-first tutorial, optional draft-to-final path, route-selection table, and task recovery guidance. Its parameter values and limits are examples from the upstream documentation, not guaranteed current settings for this project.
 
 No API schema probe, account login, paid request, or live generation was performed as part of this review.
 
-## Attribution
+## License and attribution correction
 
-Workflow concepts are adapted from the upstream repository. The upstream repository identifies its documentation under CC BY 4.0; see its [LICENSE](https://github.com/Evolink-AI/GPT-Image-2-Seedance-2.5-Workflow/blob/main/LICENSE). This file records the source and summarizes the adaptation rather than copying its README or media.
+The upstream repository's checked-in `LICENSE` file is **Apache License, Version 2.0** (Copyright 2024 EvoLink AI). An earlier version of this review incorrectly described the license as CC BY 4.0; that statement is corrected here. The license text is included at `licenses/EvoLink-APACHE-2.0.txt` for reference. This project does not copy the upstream media assets or claim ownership of EvoLink's material.
+
+Source: [Upstream LICENSE](https://github.com/Evolink-AI/GPT-Image-2-Seedance-2.5-Workflow/blob/main/LICENSE).
