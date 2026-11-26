@@ -22,12 +22,12 @@ The upstream guide distinguishes routes by the kind of input. Treat these identi
 
 | Intended input or task | Example route | Notes |
 | --- | --- | --- |
-| One approved first frame, or first and last frames | `seedance-2.5-image-to-video` | Use the reviewed still as the first frame. The upstream guide describes one or two image URLs; confirm current limits. |
+| One approved first frame, or first and last frames | `seedance-2.5-image-to-video` | Use the reviewed still as the first frame. Confirm current image count and limits. |
 | Images, video, or audio used as references | `seedance-2.5-reference-to-video` | Describe each reference's role clearly. A storyboard grid can guide sequence intent, but do not assume exact panel timing or order. |
 | Text-only scene description | `seedance-2.5-text-to-video` | Use when no input media is needed. |
 | Modify an existing video | `seedance-2.5-video-edit` | Check the current video-input and duration rules. |
 | Continue an existing video | `seedance-2.5-video-extend` | Review continuity between the source and generated segment. |
-| Convert an eligible completed draft | `seedance-2.5-draft-to-video` | The upstream guide describes a separate 1080p conversion task; verify eligibility and expiry. |
+| Convert an eligible completed draft | `seedance-2.5-draft-to-video` | The upstream guide describes a separately billed conversion task; verify eligibility and expiry. |
 
 For this repository's default character-animation workflow, prefer image-to-video only after the source still has been reviewed and approved. Use reference-to-video only when multiple reference assets genuinely help define character, style, or motion.
 
@@ -43,11 +43,13 @@ For this repository's default character-animation workflow, prefer image-to-vide
 
 The upstream I2V example uses an adaptive aspect-ratio value for the input image. Do not assume that value—or any other example field—is accepted by the current endpoint without checking the live schema.
 
-## 4. Optional draft-to-final path
+## 4. Resolution and optional draft-to-final
 
-The upstream guide describes an optional draft flow using a 480p draft followed by a separately billed 1080p conversion. This is not automatically cheaper overall and is not required for the standard workflow.
+The provider's changelog dated 2026-11-16 describes 4K output for the five Seedance 2.5 generation/edit/extend routes using `quality: "4k"`. It also describes draft conversion with `quality: "1080p"` (default) or `"4k"`. These are time-sensitive provider notes, not a substitute for the live schema. 4K has a separate rate; review the current price before choosing it.
 
-Before considering it, verify:
+The upstream guide also describes an optional 480p draft followed by a separately billed 1080p or 4K conversion. This is not automatically cheaper overall and is not required for the standard workflow.
+
+Before considering draft mode, verify:
 - The draft option is currently available for the selected model and account.
 - The draft's completion and expiry timestamps.
 - The conversion model's current schema and separate price.
@@ -75,7 +77,7 @@ Before each paid submission, confirm:
 - [ ] Correct model and current availability
 - [ ] Current schema and accepted inputs checked
 - [ ] Prompt and source media reviewed
-- [ ] Duration, aspect ratio, and other parameters checked
+- [ ] Duration, aspect ratio, and resolution checked
 - [ ] Current estimated price understood
 - [ ] Parent/guardian approval obtained where payment or account use is involved
 - [ ] Explicit approval given for this specific task
