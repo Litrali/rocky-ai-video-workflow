@@ -59,8 +59,10 @@ Selected workflow concepts are adapted from [EvoLink-AI/GPT-Image-2-Seedance-2.5
 5. Check [API workflow](docs/api-workflow.md) and [upstream review notes](docs/upstream-review.md).
 
 Rocky AI Video Workflow
+
 A fresh, organised workspace for planning short animated stories, creating consistent character and scene references, preparing shot-by-shot video prompts, and assembling the final edit.
 Workflow at a glance
+
 Story & script — develop the idea, hook, scenes, dialogue, and ending.
 Character bible — lock each character's appearance, clothing, personality, and voice.
 Scene planning — map every character's entrance, position, action, and exit.
@@ -69,6 +71,7 @@ Video prompting — prepare shot-level prompts with timing, camera, action, ligh
 Generation review — an eligible user can transfer approved assets and prompts into a video-generation service, subject to that service's age, region, and account rules. This workspace does not connect to or install any external service.
 Editing & delivery — assemble clips, dialogue, sound, titles, and export.
 Folder guide
+
 01_STORIES/ — ideas, scripts, dialogue, hooks, endings.
 02_CHARACTER_BIBLE/ — character descriptions and continuity locks.
 03_SCENE_PLANS/ — scene order, cast presence, entrances and exits.
@@ -79,8 +82,11 @@ Folder guide
 08_EDITING/ — edit plan, captions, and export checklist.
 09_PUBLISHING/ — title, description, thumbnail brief, and release checklist.
 TEMPLATES/ — reusable blank templates.
+
 File naming
+
 Use: PROJECT_SCENE##_SHOT##_ASSETTYPE_v##
+
 Example: ROCKY_SCENE02_SHOT01_IMAGE_v01.png
 Keep approved images and final clips in separate folders. Never overwrite an approved asset; increment the version number.
 Important
