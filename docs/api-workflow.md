@@ -1,50 +1,80 @@
-# API workflow notes
+# Image-first AI video workflow
 
-These notes summarize the supplied workflow guide. Verify all endpoints, model identifiers, request fields, authentication rules, and prices against the provider's current documentation before use.
+This project uses an image-first production pattern: prepare a still, review it, then choose the appropriate video route. The route names and request fields below are reference notes from the upstream EvoLink workflow guide, not a live API contract. Verify current documentation, model availability, account permissions, inputs, and prices before use.
 
-## Two-stage pipeline
+Upstream reference: [EvoLink-AI/GPT-Image-2-Seedance-2.5-Workflow](https://github.com/Evolink-AI/GPT-Image-2-Seedance-2.5-Workflow).
 
-### Stage A — GPT Image 2 still
+## 1. Prepare and approve the still
 
-1. Finalize the scene and character description.
+1. Finalize the scene, character design, outfit, pose, camera, and framing.
 2. Inspect the current GPT Image 2 schema.
-3. Prepare the request and review its prompt and cost.
-4. Obtain explicit approval for the paid task.
+3. Prepare the still-image request and review its prompt, inputs, and estimated cost.
+4. Obtain explicit approval for that specific paid image task.
 5. Submit once, record the task ID and response, and retrieve the result.
-6. Review the still before continuing.
+6. Review the actual image: character identity, outfit, composition, unwanted elements, and dimensions.
+7. Do not continue to video until the still is approved.
 
-### Stage B — Seedance 2.5 image-to-video
+The upstream example uses a single image scene rather than assuming a storyboard grid is a valid first frame. If a storyboard is used for planning, select and prepare the intended frame separately.
 
-1. Start from the approved still only.
-2. Inspect the current `seedance-2.5-image-to-video` schema.
-3. Confirm the approved image URL/input, aspect ratio, duration, and motion prompt are supported.
-4. Review the full request and current price.
-5. Obtain explicit approval for this separate paid task.
-6. Submit once, record the task ID, poll that same task, and save the resulting clip.
+## 2. Choose the video route
 
-The supplied guide demonstrates an adaptive aspect-ratio setting for the approved first-frame image. Do not assume it remains supported; confirm it in the live schema.
+The upstream guide distinguishes routes by the kind of input. Treat these identifiers as examples to verify against the live model catalogue.
 
-## API shape shown in the supplied guide
+| Intended input or task | Example route | Notes |
+| --- | --- | --- |
+| One approved first frame, or first and last frames | `seedance-2.5-image-to-video` | Use the reviewed still as the first frame. The upstream guide describes one or two image URLs; confirm current limits. |
+| Images, video, or audio used as references | `seedance-2.5-reference-to-video` | Describe each reference's role clearly. A storyboard grid can guide sequence intent, but do not assume exact panel timing or order. |
+| Text-only scene description | `seedance-2.5-text-to-video` | Use when no input media is needed. |
+| Modify an existing video | `seedance-2.5-video-edit` | Check the current video-input and duration rules. |
+| Continue an existing video | `seedance-2.5-video-extend` | Review continuity between the source and generated segment. |
+| Convert an eligible completed draft | `seedance-2.5-draft-to-video` | The upstream guide describes a separate 1080p conversion task; verify eligibility and expiry. |
 
-The guide illustrates an EvoLink API base of `https://api.evolink.ai/v1`, generation paths under `/images/generations` and `/videos/generations`, and task retrieval at `/tasks/{task_id}`.
+For this repository's default character-animation workflow, prefer image-to-video only after the source still has been reviewed and approved. Use reference-to-video only when multiple reference assets genuinely help define character, style, or motion.
 
-Treat these as guide-derived examples, not a guarantee of the current API. Confirm the provider's current API reference before making requests.
+## 3. Prepare and approve the video request
 
-## Reliable task handling
+1. Inspect the live schema for the chosen route.
+2. Confirm image/video/audio inputs, dimensions, aspect ratio, duration, output format, and all other accepted parameters.
+3. Write subject motion and camera motion separately.
+4. Preserve the approved character design, clothing, props, scene layout, and screen direction.
+5. Review the full request and current estimated price.
+6. Obtain explicit approval for this separate paid task.
+7. Submit once and record the task ID and response.
+
+The upstream I2V example uses an adaptive aspect-ratio value for the input image. Do not assume that value—or any other example field—is accepted by the current endpoint without checking the live schema.
+
+## 4. Optional draft-to-final path
+
+The upstream guide describes an optional draft flow using a 480p draft followed by a separately billed 1080p conversion. This is not automatically cheaper overall and is not required for the standard workflow.
+
+Before considering it, verify:
+- The draft option is currently available for the selected model and account.
+- The draft's completion and expiry timestamps.
+- The conversion model's current schema and separate price.
+- The time needed for review and conversion before expiry.
+
+If draft mode is unavailable or expired, stop and review alternatives. Do not silently switch routes or submit a replacement paid task.
+
+## 5. Task tracking and recovery
 
 - Save the exact request, response, task ID, and timestamp in a private receipt directory.
 - Poll the original task ID until a terminal state.
 - Resume polling an existing task rather than submitting a duplicate.
 - Never automatically retry a generation POST after a timeout or uncertain response. First check whether the original task was created.
-- Download result media only from the returned result location and follow the provider's current download instructions.
+- Treat a returned task ID as acceptance, not completion.
+- Download media only from the result location returned by the provider and follow current download instructions.
+- Save results promptly if result URLs are temporary.
 - Never log bearer tokens or commit receipts containing sensitive URLs or account data.
 
-## Human approval checklist
+The upstream repository includes a task helper with submission and polling functions. This project intentionally does not copy that paid-submission helper. Its local `scripts/tasks.sh` remains informational and does not send requests.
+
+## 6. Human approval checklist
 
 Before each paid submission, confirm:
 
-- [ ] Correct model and current schema
-- [ ] Prompt and input image reviewed
+- [ ] Correct model and current availability
+- [ ] Current schema and accepted inputs checked
+- [ ] Prompt and source media reviewed
 - [ ] Duration, aspect ratio, and other parameters checked
 - [ ] Current estimated price understood
 - [ ] Parent/guardian approval obtained where payment or account use is involved
