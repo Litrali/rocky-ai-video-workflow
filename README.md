@@ -57,3 +57,34 @@ Selected workflow concepts are adapted from [EvoLink-AI/GPT-Image-2-Seedance-2.5
 3. Use the [still-image template](prompts/image-prompts/still-image-template.md).
 4. Use the [Seedance image-to-video template](prompts/video-prompts/seedance-image-to-video-template.md).
 5. Check [API workflow](docs/api-workflow.md) and [upstream review notes](docs/upstream-review.md).
+
+Rocky AI Video Workflow
+A fresh, organised workspace for planning short animated stories, creating consistent character and scene references, preparing shot-by-shot video prompts, and assembling the final edit.
+Workflow at a glance
+Story & script — develop the idea, hook, scenes, dialogue, and ending.
+Character bible — lock each character's appearance, clothing, personality, and voice.
+Scene planning — map every character's entrance, position, action, and exit.
+Image planning — write still-image prompts and review the images before animation.
+Video prompting — prepare shot-level prompts with timing, camera, action, lighting, motion, and negative prompts.
+Generation review — an eligible user can transfer approved assets and prompts into a video-generation service, subject to that service's age, region, and account rules. This workspace does not connect to or install any external service.
+Editing & delivery — assemble clips, dialogue, sound, titles, and export.
+Folder guide
+01_STORIES/ — ideas, scripts, dialogue, hooks, endings.
+02_CHARACTER_BIBLE/ — character descriptions and continuity locks.
+03_SCENE_PLANS/ — scene order, cast presence, entrances and exits.
+04_IMAGE_PROMPTS/ — still-image prompts and review notes.
+05_VIDEO_PROMPTS/ — shot-by-shot animation prompts.
+06_GENERATED_ASSETS/ — approved stills and generated clips.
+07_AUDIO/ — voice, sound effects, and music notes.
+08_EDITING/ — edit plan, captions, and export checklist.
+09_PUBLISHING/ — title, description, thumbnail brief, and release checklist.
+TEMPLATES/ — reusable blank templates.
+File naming
+Use: PROJECT_SCENE##_SHOT##_ASSETTYPE_v##
+Example: ROCKY_SCENE02_SHOT01_IMAGE_v01.png
+Keep approved images and final clips in separate folders. Never overwrite an approved asset; increment the version number.
+Important
+Review still images before planning animation from them.
+Keep character designs, outfits, scale, and screen direction consistent.
+Do not invent a direct ChatGPT-to-video-service connection. No external account, API, plugin, or paid generation is configured by this folder.
+Check each service's current eligibility, age, region, terms, model options, and pricing independently. Do not bypass age or account restrictions.
